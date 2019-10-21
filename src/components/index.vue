@@ -2,6 +2,21 @@
   <div class="login-warp">
     <div>
       <h2 style="text-align: center;color: #6a7165">商品竞拍列表</h2>
+
+      <el-form  label-width="80px">
+        <el-input placeholder="请输入商品名称" style="width: 250px;margin-left: 10px" v-model="formData">
+          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+        <el-button
+                   size="mini"
+                   style="height: 38px;margin-left: 33px;margin-bottom: 10px" @click="findByUserName(formData)">搜索
+        </el-button>
+        <el-button type="info"
+                   size="mini"
+                   style="height: 38px;margin-left: 20px;margin-bottom: 10px" @click="skipProduct()">添加
+        </el-button>
+      </el-form>
+
 <!--      竞拍表格-->
       <el-table
         height="300px"
@@ -72,7 +87,7 @@
       <el-input placeholder="请输入好友昵称" style="width: 250px;margin-left: 10px" v-model="formData">
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
-        <el-button type="success"
+        <el-button
                    size="mini"
         style="height: 38px;margin-left: 33px;margin-bottom: 10px" @click="findByUserName(formData)">添加/搜索
         </el-button>
@@ -233,7 +248,8 @@
                 let loginUsername = localStorage.getItem("username");
                 if(username===loginUsername){
                     alert("请不要查询自己");
-                    return
+                  this.findByUserFriend();
+                    return false;
 
                 }
                 if (username.length===0){
@@ -266,6 +282,17 @@
                 })
 
             },
+          //商品添加
+          skipProduct(){
+            let state = localStorage.getItem('state');
+            if (state == 1){
+              this.$message.error("您不是管理员无权操作")
+
+            }else (
+              this.$router.push('addProduct')
+
+            )
+          },
             //聊天
             chat(){
                 this.$router.push("/chat")

@@ -208,7 +208,6 @@
   .login-warp {
     height: 100%;
     display: flex;
-    margin-top: 30px;
     justify-content: center;
     align-items: center;
 

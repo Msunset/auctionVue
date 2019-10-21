@@ -9,7 +9,7 @@
         <el-input v-model="formData.username"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="formData.password"></el-input>
+        <el-input type="password" v-model="formData.password"></el-input>
       </el-form-item>
       <el-form-item label="用户性别" prop="sex">
         <el-select v-model="formData.sex" placeholder="请选择" value="">

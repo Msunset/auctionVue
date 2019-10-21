@@ -9,7 +9,7 @@
         <el-input v-model="formData.username" ></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="formData.password"></el-input>
+        <el-input type="password" v-model="formData.password"></el-input>
       </el-form-item>
       <el-button type="primary" style="width: 400px;margin-left: 70px" class="login-btn" @click.passive="login(formData )"
                  id="btn">登录
@@ -59,6 +59,7 @@
                             if (flag) {
                                 localStorage.setItem('username', data.username);
                                 localStorage.setItem("loginId", data.id);
+                                localStorage.setItem("state", data.state);
                                 this.open2(msg, 'success');
                                 this.$router.push("/index")
                             } else {

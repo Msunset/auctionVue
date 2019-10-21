@@ -9,7 +9,7 @@ import axios from 'axios'
 import CountDown from 'vue2-countdown'
 Vue.prototype.axios= axios;
 
-axios.defaults.baseURL = 'http://localhost:8888';
+axios.defaults.baseURL = 'http://47.100.92.26:8888/ssm';
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
