@@ -6,6 +6,7 @@ import Product from '../components/product/product.vue'
 import Chat from '../components/chat/chat.vue'
 import Register from '../components/register/register.vue'
 import AddProduct from '../components/product/addProduct.vue'
+import Dynamic from '../components/dynamic/dynamic.vue'
 Vue.use(Router);
 
 export default new Router({
@@ -39,6 +40,11 @@ export default new Router({
       name: 'addProduct',
       path: '/addProduct',
       component: AddProduct
+    },
+    {
+      name: 'dynamic',
+      path: '/dynamic',
+      component: Dynamic
     }
   ]
 })
