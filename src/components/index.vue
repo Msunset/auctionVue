@@ -190,15 +190,16 @@
               type="textarea"
               :autosize="{ minRows: 5, maxRows: 20}"
               placeholder="这一刻的想法..."
-              v-model="textarea2">
+              v-model="formDynamic.content">
             </el-input>
             <!--  图片上传-->
             <el-upload
               style="margin-top: 30px"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="http://localhost:8888/upload/uploadPhoto"
               list-type="picture-card"
               :on-preview="handlePictureCardPreview"
-              :on-remove="handleRemove">
+              :on-remove="handleRemove"
+              :on-success="uploadsuccess">
               <i class="el-icon-plus"></i>
             </el-upload>
             <el-dialog :visible.sync="dialogVisible">
@@ -209,7 +210,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+          <el-button type="primary" @click="addDynamic()">确 定</el-button>
         </div>
       </el-dialog>
 <!--      好友动态弹层-->
@@ -293,8 +294,10 @@
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
-                textarea2: '',
-                formDynamic:{},
+                formDynamic:{
+                  content:'',
+                  image:[]
+                },
                 formLabelWidth: '120px',
                 dialogFormVisible: false,
                 loading: true,
@@ -305,20 +308,33 @@
                 id: '',
                 formData: '',
                 state: 1,//用来标识单查询0和多查询1
-                inputData: ''
+                inputData: '',
+                images:[],
             }
         },
         methods: {
+          addDynamic(){
+            this.formDynamic.image = this.images;
+            console.log(this.formDynamic)
+            this.axios.post(`dynamic/addDynamic`,this.formDynamic).then(res =>{
+              console.log(res);
+              this.dialogFormVisible = false;
+
+            })
+          },
+          uploadsuccess(response, file){
+            this.images.push(response.data)
+          },
             //图片上传
             handleRemove(file, fileList) {
-                console.log(file, fileList);
+              console.log(file, fileList);
             },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },
 
-            //获取所有商品
+            // 获取所有商品
             findAllProduct() {
                 this.axios.get('Product/findAll').then(res => {
                     this.tableData = res.data.data;
